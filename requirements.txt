@@ -1,1 +1,6 @@
 geopandas
+matplotlib
+jupyter
+pysal
+numpy
+cartopy
