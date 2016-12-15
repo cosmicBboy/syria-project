@@ -1,6 +1,10 @@
+ipykernel
+jupyter
 geopandas
 matplotlib
-jupyter
 pysal
 numpy
-cartopy
+toolz
+plotly
+cufflinks
+shapely

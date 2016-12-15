@@ -1,26 +1,26 @@
+PYTHON ?= python
+PROJECT_NAME ?= syria-project
+
 setup: install-python
 
-install-python:
-	# Install pyenv and python 2.7.11
+setup-pyenv:
+	# Install pyenv
 	curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-	pyenv update
-	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
-	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
-	echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
-	exec "$SHELL"
-	pyenv install 2.7.11
-	# Install pyenv-virtualenv
-	git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
-	echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
 
-install-virtual-env:
-	# TODO: automate creation of virtual enviroment. Look at these docs
-	# https://github.com/yyuu/pyenv-virtualenv
+install-python:
+	# Install python 2.7.11
+	pyenv update
+	pyenv install 2.7.11
+
+setup-virtual-env:
+	pyenv virtualenv 2.7.11 $(PROJECT_NAME)
+	echo "$(PROJECT_NAME)" > .python-version
 
 install-jupyter-kernel:
-	# TODO: automate creation of Jupyter Kernel for the virtual environment
-	# See here for instructions:
-	# http://www.alfredo.motta.name/create-isolated-jupyter-ipython-kernels-with-pyenv-and-virtualenv/
+	$(PYTHON) -m ipykernel install --user --name $(PROJECT_NAME)
 
 deps:
+	brew install geos
+	brew install proj
 	pip install -r requirements.txt
+	pip install cartopy
